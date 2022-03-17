@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
-// import { useAppDispatch, useAppSelector } from './app/hooks';
-// import { incremented, amountAdded } from './features/counter/counter-slice';
-import { useFetchBreedsQuery } from '../../features/api/data-api';
+import React from 'react';
+import { useAppSelector } from '../../app/hooks';
 
 function TableHeader() {
-  // const data = useAppSelector((state) => state.counter.value);
-  // const dispatch = useAppDispatch();
-
-  const { data = [] } = useFetchBreedsQuery();
-  const [headers, setHeaders] = useState(Object.keys(data[0]));
+  const dataTable = useAppSelector((state) => state.data.dataTable);
+  const headers = Object.keys(dataTable[0]);
 
   return (
     <thead>

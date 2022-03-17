@@ -31,6 +31,7 @@
         "linebreak-style":0,
         "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
         "no-console": "off",
+        "no-param-reassign": ["error", { "props": false }],
         "import/extensions": [
             "error",
             "ignorePackages",

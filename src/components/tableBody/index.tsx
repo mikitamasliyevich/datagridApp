@@ -1,17 +1,14 @@
 import React from 'react';
-import { useFetchBreedsQuery } from '../../features/api/data-api';
+import { useAppSelector } from '../../app/hooks';
 
 function TableBody() {
-  const { data = [] } = useFetchBreedsQuery();
-  const allData = data.map((dataRow) => (
-    Object.values(dataRow)
-  ));
+  const dataTable = useAppSelector((state) => state.data.dataTable);
 
   return (
     <tbody>
-      {allData.map((array, index) => (
+      {dataTable.map((array, index:number) => (
         <tr key={index}>
-          {array.map((arr, i) => <td key={i}>{arr}</td>)}
+          {Object.values(array).map((arr, i:number) => <td key={i}>{arr}</td>)}
         </tr>
       ))}
 
