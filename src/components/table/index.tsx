@@ -13,11 +13,8 @@ function Table() {
 
   return (
     <div className="table">
-      <table>
-        <caption>DataGrid Table</caption>
-        {isSuccess ? <TableHeader /> : <Preloader />}
-        {isSuccess ? <TableBody /> : <Preloader />}
-      </table>
+      {isSuccess ? <TableHeader /> : <Preloader />}
+      {isSuccess ? <TableBody /> : <Preloader />}
     </div>
   );
 }

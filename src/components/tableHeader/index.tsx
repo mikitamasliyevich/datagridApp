@@ -1,24 +1,32 @@
 import React from 'react';
+import { FixedSizeList as List } from 'react-window';
 import { useAppSelector } from '../../app/hooks';
 
-function TableHeader() {
+function Column() {
   const dataTable = useAppSelector((state) => state.data.dataTable);
   const headers = Object.keys(dataTable[0]);
-
   return (
-    <thead>
-      <tr className="table-header">
-        {headers.map((row) => (
-          <th key={row}>
-            <div className="table-header-cell">
-              <span>{row}</span>
-            </div>
-          </th>
-        ))}
+    <tr>
+      {headers.map((row) => (
+        <th>
+          {row}
+        </th>
+      ))}
+    </tr>
+  );
+}
 
-      </tr>
-    </thead>
-
+function TableHeader() {
+  return (
+    <List
+      height={75}
+      itemCount={1}
+      itemSize={35}
+      layout="horizontal"
+      width={1500}
+    >
+      {Column}
+    </List>
   );
 }
 
