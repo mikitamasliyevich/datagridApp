@@ -1,14 +1,16 @@
 import React from 'react';
 import { FixedSizeList as List } from 'react-window';
 import { useAppSelector } from '../../app/hooks';
+import { IServerData } from '../../types/index';
 
 function Row() {
   const dataTable = useAppSelector((state) => state.data.dataTable);
+
   return (
     <>
-      {dataTable.map((array: any, index:number) => (
+      {dataTable.map((array: IServerData, index:number) => (
         <tr key={index}>
-          {Object.values(array).map((arr: any, i:number) => <td key={i}>{arr}</td>)}
+          {Object.values(array).map((arr: IServerData, i:number) => <td key={i}>{arr}</td>)}
         </tr>
       ))}
     </>

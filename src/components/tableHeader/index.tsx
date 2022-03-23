@@ -1,5 +1,6 @@
 import React from 'react';
 import { FixedSizeList as List } from 'react-window';
+
 import { useAppSelector } from '../../app/hooks';
 
 function Column() {
@@ -7,8 +8,8 @@ function Column() {
   const headers = Object.keys(dataTable[0]);
   return (
     <tr>
-      {headers.map((row) => (
-        <th>
+      {headers.map((row, index) => (
+        <th key={index}>
           {row}
         </th>
       ))}

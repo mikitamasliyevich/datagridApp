@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import dataReducer from '../features/state_feature/state_feature';
+import dataReducer from '../features/redux_actions';
 import { apiSlice } from '../features/api/data-api';
 
 export const store = configureStore({
