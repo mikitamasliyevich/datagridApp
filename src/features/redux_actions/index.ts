@@ -1,11 +1,12 @@
 // DUCKS pattern
 import {
-  createSlice, PayloadAction, current,
+  createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import { IReduxState, IServerData } from '../../types';
 
 const initialState: IReduxState = {
   dataTable: [],
+  dataTableSearch: '',
 };
 
 const counterSlice = createSlice({
@@ -16,9 +17,14 @@ const counterSlice = createSlice({
       state.dataTable = action.payload;
     },
     dataTableSearch(state, action: PayloadAction<string>) {
-      state.dataTable.map((el) => Object.values(el).toString().includes(action.payload));
-      // here is a main problem that it does not see my dataTable, also current(dataTable)
-      // also doen not help
+      let searchDataTable = [...state.dataTable];
+      searchDataTable = searchDataTable
+        .map((el) => Object.values(el)
+          .filter((eal) => eal?.toString().toLowerCase().includes(action.payload.toLowerCase())));
+      return {
+        ...state,
+        dataTable: searchDataTable,
+      };
     },
   },
 });

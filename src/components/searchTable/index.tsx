@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { dataTableSearch } from '../../features/redux_actions';
+import { dataTableAdded, dataTableSearch } from '../../features/redux_actions';
+import { useFetchBreedsQuery } from '../../features/api/data-api';
 
 function SearchData() {
   const [value, setValue] = useState('');
@@ -8,7 +9,9 @@ function SearchData() {
   function onChangeHandler(event: React.FormEvent<HTMLInputElement>) {
     setValue((event.target as HTMLInputElement).value);
   }
-  useEffect(() => (value !== '' ? dispatch(dataTableSearch(value)) : console.log('here I can all again')), [dispatch, value]);
+  const { data } = useFetchBreedsQuery();
+
+  useEffect(() => (value !== '' ? dispatch(dataTableSearch(value)) : dispatch(dataTableAdded(data))), [dispatch, value]);
 
   return (
     <div className="search-global">

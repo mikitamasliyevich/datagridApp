@@ -9,6 +9,7 @@ function Column() {
   return (
     <tr>
       {headers.map((row, index) => (
+        // eslint-disable-next-line react/no-array-index-key
         <th key={index}>
           {row}
         </th>

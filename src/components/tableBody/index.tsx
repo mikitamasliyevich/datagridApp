@@ -5,12 +5,11 @@ import { IServerData } from '../../types/index';
 
 function Row() {
   const dataTable = useAppSelector((state) => state.data.dataTable);
-
   return (
     <>
       {dataTable.map((array: IServerData, index:number) => (
         <tr key={index}>
-          {Object.values(array).map((arr: IServerData, i:number) => <td key={i}>{arr}</td>)}
+          {Object.values(array).map((arr: IServerData, i:number) => <td key={i}>{arr?.toString()}</td>)}
         </tr>
       ))}
     </>
