@@ -7,6 +7,7 @@ import { IReduxState, IServerData } from '../../types';
 const initialState: IReduxState = {
   dataTable: [],
   dataTableSearch: '',
+  activeSort: null,
 };
 
 const counterSlice = createSlice({
@@ -21,13 +22,57 @@ const counterSlice = createSlice({
       searchDataTable = searchDataTable
         .map((el) => Object.values(el)
           .filter((eal) => eal?.toString().toLowerCase().includes(action.payload.toLowerCase())));
+
       return {
         ...state,
         dataTable: searchDataTable,
       };
     },
+    sortAsc(state, action: PayloadAction<number>) {
+      let dataSortAscTable = [...state.dataTable];
+      dataSortAscTable = dataSortAscTable.map((el) => Object.values(el)).sort((a, b) => {
+        if (a[action.payload] < b[action.payload]) return -1;
+        if (a[action.payload] > b[action.payload]) return 1;
+        return 0;
+      });
+
+      return {
+        ...state,
+        activeSort: { column: action.payload, sort: 'SORT_ASC' },
+        dataTable: dataSortAscTable,
+      };
+    },
+    sortDec(state, action:PayloadAction<number>) {
+      let dataSortDrcTable = [...state.dataTable];
+      dataSortDrcTable = dataSortDrcTable.map((el) => Object.values(el)).sort((a, b) => {
+        if (a[action.payload] > b[action.payload]) return -1;
+        if (a[action.payload] < b[action.payload]) return 1;
+        return 0;
+      });
+      return {
+        ...state,
+        activeSort: { column: action.payload, sort: 'SORT_DES' },
+        dataTable: dataSortDrcTable,
+      };
+    },
+    sortCancel(state, action: PayloadAction<number>) {
+      let dataCancelSortTable = [...state.dataTable];
+      dataCancelSortTable = dataCancelSortTable.map((el) => Object.values(el)).sort((a, b) => {
+        if (a[action.payload] < b[action.payload]) return -1;
+        if (a[action.payload] > b[action.payload]) return 1;
+        return 0;
+      });
+      return {
+        ...state,
+        activeSort: { column: action.payload, sort: 'SORT_CANCEL' },
+        dataTable: dataCancelSortTable,
+
+      };
+    },
   },
 });
 
-export const { dataTableAdded, dataTableSearch } = counterSlice.actions;
+export const {
+  dataTableAdded, dataTableSearch, sortAsc, sortDec, sortCancel,
+} = counterSlice.actions;
 export default counterSlice.reducer;

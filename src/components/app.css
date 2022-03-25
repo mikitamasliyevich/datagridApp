@@ -25,3 +25,19 @@ td {
   border-bottom: 2px solid #56433d;
   border-right: 2px solid #56433d;
 }
+.SortBtn {
+  margin-left: 10px;
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+
+/* & > span {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .activeBtn {
+    color: rgb(255, 0, 0);
+  }
+} */
