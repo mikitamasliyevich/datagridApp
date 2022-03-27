@@ -6,6 +6,7 @@ import { IReduxState, IServerData } from '../../types';
 
 const initialState: IReduxState = {
   dataTable: [],
+  dataTableHeader: [],
   dataTableSearch: '',
   activeSort: null,
 };
@@ -16,6 +17,9 @@ const counterSlice = createSlice({
   reducers: {
     dataTableAdded(state, action: PayloadAction<IServerData[]>) {
       state.dataTable = action.payload;
+    },
+    dataTableHeaderAdded(state, action: PayloadAction<IServerData[]>) {
+      state.dataTableHeader = action.payload;
     },
     dataTableSearch(state, action: PayloadAction<string>) {
       let searchDataTable = [...state.dataTable];
@@ -73,6 +77,7 @@ const counterSlice = createSlice({
 });
 
 export const {
-  dataTableAdded, dataTableSearch, sortAsc, sortDec, sortCancel,
+  dataTableAdded, dataTableHeaderAdded,
+  dataTableSearch, sortAsc, sortDec, sortCancel,
 } = counterSlice.actions;
 export default counterSlice.reducer;

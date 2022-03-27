@@ -15,6 +15,7 @@ export interface IServerData {
 
 export interface IReduxState {
     dataTable: IServerData[];
+    dataTableHeader: IServerData[];
     dataTableSearch: string;
     activeSort: any ;
   }
