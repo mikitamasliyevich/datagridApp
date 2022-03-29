@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { sortAsc, sortDec, sortCancel } from '../../features/redux_actions/index';
+import {
+  sortAsc, sortDec, sortCancel, onlyTrue, trueAndFalse,
+} from '../../features/redux_actions/index';
 
 interface Props {
   column: number,
@@ -9,7 +11,6 @@ interface Props {
 
 function SortButtons({ column, active }: Props) {
   const dispatch = useAppDispatch();
-
   const handler = useCallback(
     // eslint-disable-next-line no-shadow
     ({ target }, column, active) => {
@@ -41,13 +42,32 @@ function SortButtons({ column, active }: Props) {
       ▼
     </span>
   );
+  const arrowBoolean = (
+    <label htmlFor="findTrue">
+      <input
+        className="input-checkbox"
+        type="checkbox"
+        onChange={(e) => {
+          if (e.target.checked) {
+            dispatch(onlyTrue());
+          } else {
+            dispatch(trueAndFalse());
+          }
+        }}
+      />
+      (True)
+    </label>
+  );
 
   return (
     <button type="button" className="SortBtn" onClick={(e) => handler(e, column, active)}>
-      <span>
-        {arrowASC}
-        {arrowDES}
-      </span>
+      {column !== 11
+        ? (
+          <span>
+            {arrowASC}
+            {arrowDES}
+          </span>
+        ) : <span>{ arrowBoolean }</span>}
     </button>
   );
 }

@@ -9,7 +9,8 @@ function Row() {
     <>
       {dataTable.map((array: IServerData, index:number) => (
         <tr key={index}>
-          {Object.values(array).map((arr: IServerData, i:number) => <td key={i}>{arr?.toString()}</td>)}
+          {Object.values(array)
+            .map((arr: IServerData, i:number) => <td key={i}>{arr?.toString()}</td>)}
         </tr>
       ))}
     </>

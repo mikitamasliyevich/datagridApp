@@ -4,7 +4,7 @@ import SortButtons from '../sortButtons/index';
 import { useAppSelector } from '../../app/hooks';
 
 function Column() {
-  const dataTableHeader = useAppSelector((state) => state.data.dataTableHeader);
+  const dataTableHeader = useAppSelector((state) => state.data.dataTableCopy);
   const headers = Object.keys(dataTableHeader[0]);
   const activeSort = useAppSelector((state) => state.data.activeSort);
   let column: number;

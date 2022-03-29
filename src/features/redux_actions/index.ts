@@ -1,12 +1,12 @@
 // DUCKS pattern
 import {
-  createSlice, PayloadAction,
+  createSlice, PayloadAction, current,
 } from '@reduxjs/toolkit';
 import { IReduxState, IServerData } from '../../types';
 
 const initialState: IReduxState = {
   dataTable: [],
-  dataTableHeader: [],
+  dataTableCopy: [],
   dataTableSearch: '',
   activeSort: null,
 };
@@ -19,14 +19,12 @@ const counterSlice = createSlice({
       state.dataTable = action.payload;
     },
     dataTableHeaderAdded(state, action: PayloadAction<IServerData[]>) {
-      state.dataTableHeader = action.payload;
+      state.dataTableCopy = action.payload;
     },
-    dataTableSearch(state, action: PayloadAction<string>) {
-      let searchDataTable = [...state.dataTable];
-      searchDataTable = searchDataTable
-        .map((el) => Object.values(el)
-          .filter((eal) => eal?.toString().toLowerCase().includes(action.payload.toLowerCase())));
-
+    dataTableSearch(state, action: PayloadAction<any>) {
+      const searchDataTable = current(state).dataTable.map((el) => [el]
+        .filter((row) => Object.values(row)
+          .some((cell) => cell?.toString().includes(action.payload)))).flat();
       return {
         ...state,
         dataTable: searchDataTable,
@@ -73,11 +71,29 @@ const counterSlice = createSlice({
 
       };
     },
+    onlyTrue(state) {
+      const onlyTrueData = current(state).dataTable.map((el) => [el]
+        .filter((row) => row.cap_gains_over_200_usd === true)).flat();
+
+      return {
+        ...state,
+        dataTable: onlyTrueData,
+      };
+    },
+    trueAndFalse(state) {
+      const dataTablePrevious = current(state).dataTableCopy;
+
+      return {
+        ...state,
+        dataTable: dataTablePrevious,
+      };
+    },
   },
 });
 
 export const {
   dataTableAdded, dataTableHeaderAdded,
   dataTableSearch, sortAsc, sortDec, sortCancel,
+  onlyTrue, trueAndFalse,
 } = counterSlice.actions;
 export default counterSlice.reducer;
